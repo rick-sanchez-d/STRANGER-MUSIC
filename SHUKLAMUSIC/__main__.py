@@ -1,6 +1,22 @@
 import asyncio
 import importlib
+import os
+import threading
+from flask import Flask
 
+# Create Flask app
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "OK", 200
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+# Run Flask server in background
+threading.Thread(target=run_flask, daemon=True).start()
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -60,3 +76,16 @@ async def init():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(init())
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "OK", 200
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+# Run Flask server in background
+threading.Thread(target=run_flask, daemon=True).start()
